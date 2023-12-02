@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCanvas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+
+    <link rel="stylesheet" href="./css/style.css"> 
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <label>HTML</label>
+            <textarea id="html-code" onkeyup="run()"></textarea>
+
+            <label>CSS</label>
+            <textarea id="css-code" onkeyup="run()"></textarea>
+
+            <label>JavaScript</label>
+            <textarea id="js-code" onkeyup="run()"></textarea>
+        </div>
+        <div class="right">
+            <div class="output-header">Output</div>
+            <iframe id="output"></iframe>
+        </div>   
+    </div>
+
+    <script src="./js/modules/runfunc.js"></script>
+
+</body>
+</html>
