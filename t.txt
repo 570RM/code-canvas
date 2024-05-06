@@ -1,0 +1,99 @@
+import numpy as np
+class LinearRegression:
+def __init__(self,lr=0.001,n_iters=1000):
+self.lr=lr
+self.n_iters=n_iters
+self.weights=None
+self.bias=None
+def fit(self,x,y):
+n_samples,n_features=x.shape
+self.weights=np.zeros(n_features)
+self.bias=0
+for _ in range(self.n_iters):
+y_pred=np.dot(x,self.weights)+self.bias
+dw=(1/n_samples) * np.dot(x.T,(y_pred-y))
+db=(1/n_samples) * np.sum(y_pred-y)
+self.weights=self.weights-self.lr * dw
+self.bias=self.bias-self.lr * db
+def predict(self,x):
+y_pred=np.dot(x,self.weights)+self.bias
+return y_pred
+[4]: import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn import datasets
+import matplotlib.pyplot as plt
+#from LinearRegression import LinearRegression
+x,y=datasets.make_regression(n_samples=100,n_features=1,noise=20,random_state=4)
+print(x)
+print(y)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.
+↪2,random_state=1234)
+
+fig=plt.figure(figsize=(8,6))
+#[first_row:last_row ,column_0]
+#this notation will give you all values in column 0 (from all rows)
+plt.scatter(x[:,0],y,color="b",marker="o",s=30)
+plt.show()
+reg=LinearRegression(lr=0.01)
+reg.fit(x_train,y_train)
+predictions=reg.predict(x_test)
+def mse(y_test,predictions):
+return np.mean((y_test-predictions)**2)
+mse=mse(y_test,predictions)
+print(mse)
+y_pred_line=reg.predict(x)
+cmap=plt.get_cmap('viridis')
+
+
+
+
+import numpy as np
+def multiple_linear_regression(x_new,y_new,learning_rate=0.
+↪01,num_iterations=1000):
+N,M=x_new.shape
+print("N:",N)
+print("M:",M)
+#Add column of ones to X for the bias term
+X=np.hstack((np.ones((N,1)),x_new))
+print("X:",X)
+#Initialize weights
+weights=np.zeros((M+1,1))
+print("Weights: ",weights)
+for _ in range(num_iterations):
+#Forward pass
+predictions=X @ weights
+#Compute pass
+loss=(1/(2*N))*np.sum((predictions-y_new)**2)
+#Backward pass
+gradients=(1/N)*X.T @ (predictions-y_new)
+#Update pass
+weights=weights-learning_rate*np.mean(gradients,axis=1,keepdims=True)
+def predict(x):
+x_with_bias=np.hstack((1,x))
+return np.dot(x_with_bias,weights).item()
+return predict
+#Example usage
+
+
+#New sample data
+x_new=np.array([[1,2],[2,3],[3,4],[4,5]])
+y_new=np.array([4,7,10,13])
+#Create and train the multiple linear regression model
+multiple_linear_regression_new=multiple_linear_regression(x_new,y_new,learning_rate=0.
+↪01,num_iterations=1000)
+#Make predictions
+for sample in x_new:
+prediction=multiple_linear_regression_new(sample)
+print(f"Input: ",sample,"Prediction:",prediction)
+
+
+import matplotlib.pyplot as plt
+#Generate predictions for a range of x values
+x_values=np.linspace(0,5,100)
+y_predicted=[multiple_linear_regression_new([x,x]) for x in x_values]
+#plot the data points and line curve
+plt.scatter(x_new[:,0],y_new,color="blue",label="Data points")
+plt.plot(x_values,y_predicted,color="red",label="Multiple linear regression␣
+↪curve")
+plt.xlabel('X')
+plt.ylabel('Y')
